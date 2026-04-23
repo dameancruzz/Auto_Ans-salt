@@ -16,7 +16,7 @@ The Common Stuff
   hosts: all
   become: yes
   vars:
-    salt_master_ip: salt_master_ip: This is a Variable. Instead of typing the Masters IP address 10 times, you save it here once so you can change it easily later.
+    salt_master_ip: This is a Variable. Instead of typing the Masters IP address 10 times, you save it here once so you can change it easily later.
 
 --------------------------------------
 #2. authorized_key (The Key Deliverer)
@@ -24,7 +24,10 @@ The Common Stuff
 
     tasks:
         - name: Deliver my digital ID card (SSH Public Key)
-          ansible.posix.authorized_key: ansible - The main software. posix - It basically means this tool works on standard Linux systems like Fedora, Ubuntu, and macOS. Authorized_key - This is the specific tool that handles SSH keys. This module name itself is a fixed command that Ansible needs to understand what you want to do, it cannot be changed.
+          ansible.posix.authorized_key: (Empty) ansible - The main software. posix - It basically means this tool works on standard Linux systems like Fedora, Ubuntu, and macOS. Authorized_key - This is the specific tool that handles SSH keys. This module name itself is a fixed command that Ansible needs to understand what you want to do, it cannot be changed.
+            user: "{{ ansible_user }}" (Now, Ansible will look at the hosts file, find the ansible_user=... part you wrote for that specific IP, and automatically plug it in here.)
+            state: present
+            key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
 
             user: user
             state: present
