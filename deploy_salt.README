@@ -1,30 +1,36 @@
 --------------------------------------
-The "Header" Stuff
+The Common Stuff 
 --------------------------------------
 
     name: This is just a label. It doesn't do anything technical; it’s just the visual part which makes Ansible nice on the eyes.
     hosts: Who are we talking to? 'all' means everyone in my hosts file. Can be restricted during execution (on the command line) to a specific host or group at runtime without              modifying the playbook. Ex.) ansible-playbook site.yml --limit "host1,host2" 
-    become: yes: This is the Sudo button. It tells Ansible, Do this as the rootuser by default. Can be combined with become_method: su (the tool used to switch users)                              and become_user: root ( who you want to become can be any user)
     vars: This is used to store data, manage system variations, and make playbooks reusable across different environments.
+    tasks: Inside each task, you see words like user, state, and key. These change depending on which Module is being used.
 
-    vars: This is a Variable. Instead of typing your IP address 10 times, you save it here once so you can change it easily later.
-
---------------------------------------
-The "Action" Words (The Tasks)
---------------------------------------
-
-Inside each task, you see words like user, state, and key. These change depending on which Module you are using
 
 --------------------------------------
 #1. Industrial Deployment of Salt Minion
 --------------------------------------
 
-    vars: 
-          salt_master_ip: This is a Variable. Instead of typing the Masters IP address 10 times, you save it here once so you can change it easily later.
+- name: Industrial Deployment of Salt Minion
+  hosts: all
+  become: yes
+  vars:
+    salt_master_ip: salt_master_ip: This is a Variable. Instead of typing the Masters IP address 10 times, you save it here once so you can change it easily later.
 
 --------------------------------------
 #2. authorized_key (The Key Deliverer)
 --------------------------------------
+
+    tasks:
+        - name: Deliver my digital ID card (SSH Public Key)
+          ansible.posix.authorized_key: ansible - The main software. posix - It basically means this tool works on standard Linux systems like Fedora, Ubuntu, and macOS. Authorized_key - This is the specific tool that handles SSH keys. This module name itself is a fixed command that Ansible needs to understand what you want to do, it cannot be changed.
+
+            user: user
+            state: present
+            key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+
+
 -name:    
  ansible.posix.authorized_key: ansible - The main software. posix - It basically means this tool works on standard Linux systems like Fedora, Ubuntu, and macOS. Authorized_key - This is the specific tool that handles SSH keys. This module name itself is a fixed command that Ansible needs to understand what you want to do, it cannot be changed.
 
