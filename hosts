@@ -1,0 +1,2 @@
+[minions]
+192.168.122.43 ansible_user=user

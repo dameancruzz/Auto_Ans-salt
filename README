@@ -1,0 +1,8 @@
+#Run thi scommand after SSh into VM or device to deploy a playbook from ansabel
+
+ansible-playbook -i hosts deploy_salt.yml
+
+#To run without the -k (first name in the playbook, which looks for the SSH public key) and -K (To be truly hands free zero passwords at all, you can tell the VM, so put ocmmand below in the VM to let the user run sudo commands without a password).
+
+echo "user ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/user
+
