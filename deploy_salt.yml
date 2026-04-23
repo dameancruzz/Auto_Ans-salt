@@ -1,10 +1,11 @@
-
+#1.
 - name: Industrial Deployment of Salt Minion
   hosts: all
   become: yes
   vars:
     salt_master_ip: "192.168.122.1"
 
+#2.
   tasks:
     - name: Deliver my digital ID card (SSH Public Key)
       ansible.posix.authorized_key:
@@ -12,7 +13,7 @@
         state: present
         key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
 
-
+#3.
     - name: Salt Deployment Block
       block:
         - name: Install Salt Minion and Python 3.14 dependencies
@@ -25,6 +26,7 @@
               - python3-looseversion
             state: latest
 
+#4.
         - name: Set Master IP in Minion Config
           ansible.builtin.lineinfile:
             path: /etc/salt/minion
@@ -33,6 +35,7 @@
             state: present
           notify: Restart Salt Minion
 
+#5.
         - name: Configure Local Firewall for Salt Ports (Outbound)
           ansible.builtin.firewalld:
             port: "{{ item }}/tcp"
@@ -42,22 +45,22 @@
           loop:
             - 4505
             - 4506
-
+#6.
       rescue:
         - name: REPORT ERROR - Package Install Failed
           ansible.builtin.debug:
             msg: "CRITICAL: The Salt installation failed on {{ inventory_hostname }}."
 
+#7.
     - name: Final Connectivity Health Check
       ansible.builtin.command: "nc -zv {{ salt_master_ip }} 4506"
       register: nc_check
       failed_when: "'succeeded' not in nc_check.stderr and nc_check.rc != 0"
       changed_when: false
-
+#8.
   handlers:
     - name: Restart Salt Minion
       ansible.builtin.systemd:
         name: salt-minion
         state: restarted
         enabled: yes
-
