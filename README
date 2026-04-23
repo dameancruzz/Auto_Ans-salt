@@ -1,8 +1,51 @@
-#Run thi scommand after SSh into VM or device to deploy a playbook from ansabel
+This is my attempt to combine Ansible playbooks and salts .sls files to automate the boring stuff and just make it work. 
 
-ansible-playbook -i hosts deploy_salt.yml
+ So, a little history before I begin. 
 
-#To run without the -k (first name in the playbook, which looks for the SSH public key) and -K (To be truly hands free zero passwords at all, you can tell the VM, so put ocmmand below in the VM to let the user run sudo commands without a password).
+-------------------------------
+Ansible VS Salt
+-------------------------------
 
-echo "user ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/user
+On the basics they really are the same; they automate the boring stuff. But the "how" and "why" you use them is the big difference. 
+Let's say you have 10 friends across the world, some at Starbucks, some at Dunkin', and some in a group chat, and you want all of them to build a super-specific Lego house exactly the same way. Even if more friends come in to join, we would want to automate it for them too. We would think let's just use either Salt or Ansible; they both do the same thing right? You're not wrong, they would work the same of course because it's simply telling others (or other devices) how to do something. 
+
+The Lego hypothetical can really be anything to installing a program on the connected devices, getting information on the connected devices, or even just updating all the devices.
+
+Ansibile 
+
+Ansible is like a mail carrier. We give them a specific letter (called a playbook for ansible) with instructions on the Lego house. The mail person, Joe, travels to their house, and knocks at their door (over SSH). Joe would then stay in the room and read the instructions line-by-line. If Joe leaves mid-sentence (host losses signal), the work stops instantly, and the friend no longer has the instructions to continue, oh well. Once Joe leaves for any reason he goes back to where he came from and says, “done my job and who is next?” 
+
+Salt 
+
+Salt in this scenario would be like a Smart Home system, instead of sending Joe the carrier we would instead install a speaker in the friend's house. (Once the speaker is installed the whole house would be called a minion). All it would take to send the friend the instructions of the Lego house would be to push one button from the our laptop (called a master, the one who sends anything to the minions or connected devices) and bam it will broadcast out the speaker and download the blueprint and stores it locally on how to build the Lego house. (These instructions instead of being called a playbook like for Ansible are also called a .sls file.) Even if the laptop (or Master) or the Wi-Fi happens to shut off or pause, the friend can keep building because they have it all stored locally. It could even self-heal if a Lego piece falls off because it doesn't match the blueprint and tells them to fix it. 
+
+ 
+The only problem with Salt is that it’s a lot of work to go to every house and install those smart speakers. So, we would combine them to create the ultimate power. But situations such as pulling a GitHub repositiory is where Ansible shines.  
+
+-------------------------------
+Summary
+-------------------------------
+
+    The Delivery (Ansible & SSH): 
+    You use Ansible as your delivery truck. It uses a "key" called SSH to unlock your friends' front doors. It doesn't stay; it just walks in, installs the Salt Minion (the speaker) and the Python Dependencies (the batteries), and then the truck drives away. 
+
+ 
+    The Intercom (SaltStack & ZeroMQ): 
+    Once the Minion is installed, it reaches out to your laptop (the Salt Master) and creates a permanent, high-speed connection called a ZeroMQ tunnel. This is the "intercom" wire. Unlike the delivery truck that must drive back and forth, this wire is always on. 
+
+
+    The Shout (Commands & Grains): 
+    When you type a command into your laptop (the CLI), you aren't sending a letter; you’re broadcasting a signal. You ask for Grains, which is tech-speak for "pre-saved facts" like their IP Address, OS version, or CPU count. 
+
+
+    The Flood (Parallel Execution): 
+    Because of that "always on" wire, you can talk to 1,000 friends as easily as one. This is called Parallel Execution. You shout the command once, and every Minion processes it locally and sends the data back to your Master in milliseconds. 
+
+
+    The Bottom Line: 
+    You use Ansible for the "First Touch" (bootstrap) because it's agentless, no prep needed, and you use Salt for "Day 2" operations because it’s agent-based, insanely fast and scalable. You used Ansible to build the infrastructure and Salt to manage the world. You’ve automated the setup, the maintenance, and the reporting. 
+-------------------------------
+HISTORY END
+-------------------------------
+
 
