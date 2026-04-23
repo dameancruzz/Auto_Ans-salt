@@ -35,10 +35,14 @@ Inside each task, you see words like user, state, and key. These change dependin
     key: The actual "Digital ID" data we are handing over. It basically read your local SSH public key {{ lookup ('file', '~/.ssh/id_ed25519.pub') }} and copy its contents to remote servers, enabling passwordless SSH access. The .ssh to .pb is where my public key is located.
 
 --------------------------------------
-#3. Salt Deployment Block; dnf (The Package Manager)
+#3. Download stuff
 --------------------------------------
 
-    state: latest: This means "Check for the newest version and install it." If it’s already the newest, do nothing.
+block: Used to group targeted tasks together, allowing it to be treated as one unit.
+        - name: Install Salt Minion and Python 3.14 dependencies
+          ansible.builtin.dnf: Used to manage packages such as delete, or download. In this case it is to download due state being latest and not absent.
+            name: (Blank)
+            state: latest: This means check for the newest version and install it. if it’s already the newest do nothing.
 
 --------------------------------------
 #4. lineinfile (The Text Editor)
