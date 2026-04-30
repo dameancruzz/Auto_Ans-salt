@@ -4,9 +4,9 @@ This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoy
 
 ## 🚀 Quick Start: How to make it work
 
-1. **The Inventory:** Open the `hosts` file. 
+1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
    - Add your target VM IPs under `[remote_nodes]`.
-   - **Optional:** If you want to test on your own laptop first, remove the `#` from `master_node` at the very bottom of the file hosts.
+   - **Optional:** If you want to test on your own laptop first, basically making it so you rmaster also becomes a minion you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a grea way to test it works before adding other IP's to the hosts file. 
 
 2. **The Launch:** Run this command in your terminal:
 
