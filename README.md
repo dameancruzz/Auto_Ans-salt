@@ -1,11 +1,14 @@
 🧱 Salt Minion Automation: The Lego House Project
 ===============
 
-<p>This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoying beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues if it occurs, so you can get straight to managing your infrastructure.</p>
+This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automates the annoying, beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues (*if it occurs*), so you can get straight to managing your infrastructure using salt.
+
 
 ---
 
-## ✅ Quick Start: How to make it work
+
+
+✅ Quick Start: How to make it work
 
 ### 0️⃣: **Get the Files**
 First, you need to bring this project from GitHub onto your device. Open your terminal and run:
