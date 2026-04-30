@@ -25,11 +25,11 @@ cd Auto_Ans-salt
    <p> This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions). </p>
 
      
-### 3. **The Passwords:** 
+**The Passwords** 
 
 <p> Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).</p> 
 
-### 4. **The Result:** 
+**The Result** 
 <p> Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more passwords needed! </p>
 
 ---
