@@ -1,12 +1,12 @@
 🧱 Salt Minion Automation: The Lego House Project
 ===============
 
-This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automates the annoying beginning hassle of <ins>installing the minion</ins> on a device, setting IPs, and fixing firewall issues (_if it occurs_), so you can get straight to managing your infrastructure using **Salt**.  
+This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automates the annoying beginning hassle of <ins>installing the minion</ins> on a device, <ins>setting IPs</ins>, and <ins>fixing firewall issues</ins> (_if it occurs_), so you can get straight to managing your infrastructure using **Salt**.  
   
   
 ---
 
-✅ ### Quick Start: How to make it work
+### ✅ Quick Start: **How to make it work**
 
 ## 0️⃣: **Get the Files**
 First, you need to bring this project from GitHub onto your device. Open your terminal and run:
@@ -35,11 +35,10 @@ If you want to test on your own laptop first, basically making it so your master
 This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions).
 
      
-**The Passwords** 
-
+**The Passwords**  
 Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).
 
-**The Result** 
+**The Result**  
 Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed!
 
 ---
@@ -48,14 +47,14 @@ Once it finishes, your VM is a Salt Minion and your laptop is the Master. No mor
 
 Imagine you want 10 friends across the world to build a super-specific **Lego house** exactly the same way.
 
-> **Ansible (The Mail Carrier)**
-
+**Ansible (The Mail Carrier)**
 Like a mail carrier, Ansible delivers a letter (**Playbook**) over **SSH**. The carrier stays and reads instructions line-by-line. If they leave, the work stops. Once they are done, they head home. It’s perfect for the "First Touch."
 
-> **Salt (The Smart Home)**  
-> Salt installs a speaker in the house (**Minion**). You push a button from your laptop (**Master**) and it broadcasts a blueprint (**SLS file**). The house "listens" and stays in that state. If a Lego piece falls off, it "self-heals" automatically!
+**Salt (The Smart Home)**  
+ Salt installs a speaker in the house (**Minion**). You push a button from your laptop (**Master**) and it broadcasts a blueprint (**SLS file**). The house "listens" and stays in that state. If a Lego piece falls off or the master disconnects, it will "self-heals" automatically!
 
-**The Strategy:** Use Ansible to **build** the house and Salt to **live in and manage** it.
+**The Strategy** 
+Use Ansible to **build** the house and Salt to **live in and manage** it.
 
 ---
 
