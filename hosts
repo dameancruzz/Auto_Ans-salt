@@ -17,6 +17,22 @@ localhost ansible_connection=local
 # to each line. This overrides the "one-size-fits-all" prompt.
 #
 # EXAMPLE:
-# 10.41.10.66 ansible_user=Bobjr ansible_ssh_pass=Pass123
-# 192.168.122.50 ansible_user=damean ansible_ssh_pass=Secret999
-# ----------------------------------------------------------                
+# 10.41.10.66 ansible_user=Bobjr ansible_ssh_pass=Pass123 (Pass123 is this IP's password)
+# 192.168.122.50 ansible_user=damean ansible_ssh_pass=Secret999 (Secret999 is his IP's password)
+# ----------------------------------------------------------
+
+# --- ADD YOUR ACTUAL IPs BELOW THIS LINE ---
+# Example: 10.41.10.66 ansible_user=Bobjr
+
+
+# ==========================================================
+# THE "SWITCHBOARD": CHOOSE YOUR TARGETS
+# ==========================================================
+# This section tells the playbook who the "targets" are.
+[targets:children]
+# This keeps your remote VMs active in the deployment:
+remote_nodes
+
+# OPTIONAL: Remove the '#' below to make your Master a minion too.
+# master_node
+
