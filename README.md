@@ -41,6 +41,10 @@ Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO
 **The Result**  
 Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed!
 
+#3️⃣ **Accept key**  
+
+
+
 ---
 
 ## 📜 A Little History: Ansible vs. Salt
