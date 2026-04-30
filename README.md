@@ -14,7 +14,7 @@ cd Auto_Ans-salt
 
 ### 1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
    - Add your target VM IPs under `[remote_nodes]`.
-   - **Optional:** If you want to test on your own laptop first, basically making it so you rmaster also becomes a minion you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a grea way to test it works before adding other IP's to the hosts file. 
+   - **Optional:** If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file. 
 
 ### 2. **The Launch:** Run this command in your terminal:
 
@@ -22,6 +22,9 @@ cd Auto_Ans-salt
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
+   - This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) -i (the inventory flag) hosts (the target list) deploy_minions.yml (the instructions).
+
+     
 ### 3. **The Passwords:** Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt). 
 
 ### 4. **The Result:** Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more passwords needed!
