@@ -1,4 +1,5 @@
-## 🧱: Salt Minion Automation: The Lego House Project
+🧱 Salt Minion Automation: The Lego House Project
+===============
 
 <p>This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoying beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues if it occurs, so you can get straight to managing your infrastructure.</p>
 
@@ -7,7 +8,7 @@
 ## ✅ Quick Start: How to make it work
 
 ### 0️⃣: **Get the Files**
-<p> First, you need to bring this project from GitHub onto your device. Open your terminal and run:</p>
+First, you need to bring this project from GitHub onto your device. Open your terminal and run:
 
 ```bash
 git clone https://github.com/dameancruzz/Auto_Ans-salt
@@ -21,7 +22,7 @@ Open the `hosts` file using vim (the best editor), sudo or other editors.
    - Add your target VM IPs under `[remote_nodes]`.
      
    - **Optional:**
-<p> If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.<p> 
+If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.
 
 
 ### 2️⃣: **The Launch:** Run this command in your terminal:
@@ -30,15 +31,15 @@ Open the `hosts` file using vim (the best editor), sudo or other editors.
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
-   <p> This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions). </p>
+This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions).
 
      
 **The Passwords** 
 
-   <p> Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).</p> 
+Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).
 
 **The Result** 
-   <p> Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed! </p>
+Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed!
 
 ---
 
@@ -46,8 +47,9 @@ Open the `hosts` file using vim (the best editor), sudo or other editors.
 
 Imagine you want 10 friends across the world to build a super-specific **Lego house** exactly the same way.
 
-> **Ansible (The Mail Carrier)**  
-> Like a mail carrier, Ansible delivers a letter (**Playbook**) over **SSH**. The carrier stays and reads instructions line-by-line. If they leave, the work stops. Once they are done, they head home. It’s perfect for the "First Touch."
+> **Ansible (The Mail Carrier)**
+
+Like a mail carrier, Ansible delivers a letter (**Playbook**) over **SSH**. The carrier stays and reads instructions line-by-line. If they leave, the work stops. Once they are done, they head home. It’s perfect for the "First Touch."
 
 > **Salt (The Smart Home)**  
 > Salt installs a speaker in the house (**Minion**). You push a button from your laptop (**Master**) and it broadcasts a blueprint (**SLS file**). The house "listens" and stays in that state. If a Lego piece falls off, it "self-heals" automatically!
