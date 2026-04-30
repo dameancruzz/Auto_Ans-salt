@@ -4,19 +4,26 @@ This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoy
 
 ## 🚀 Quick Start: How to make it work
 
-1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
+### 0. Get the Files
+First, you need to bring this project from GitHub onto your computer. Open your terminal and run:
+```bash
+git clone <YOUR_GITHUB_REPO_URL_HERE>
+cd <YOUR_REPO_NAME>
+```
+
+### 1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
    - Add your target VM IPs under `[remote_nodes]`.
    - **Optional:** If you want to test on your own laptop first, basically making it so you rmaster also becomes a minion you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a grea way to test it works before adding other IP's to the hosts file. 
 
-2. **The Launch:** Run this command in your terminal:
+### 2. **The Launch:** Run this command in your terminal:
 
    ```bash
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
-3. **The Passwords:** Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt). 
+### 3. **The Passwords:** Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt). 
 
-4. **The Result:** Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more passwords needed!
+### 4. **The Result:** Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more passwords needed!
 
 ---
 
