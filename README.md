@@ -1,23 +1,30 @@
-## 🧱 Salt Minion Automation: The Lego House Project
+## 🧱: Salt Minion Automation: The Lego House Project
 
 <p>This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoying beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues if it occurs, so you can get straight to managing your infrastructure.</p>
 
-## 🚀 Quick Start: How to make it work
+---
 
-### 0. Get the Files
-<p> First, you need to bring this project from GitHub onto your computer. Open your terminal and run:</p>
+## ✅ Quick Start: How to make it work
+
+### 0️⃣: **Get the Files**
+<p> First, you need to bring this project from GitHub onto your device. Open your terminal and run:</p>
 
 ```bash
 git clone https://github.com/dameancruzz/Auto_Ans-salt
 cd Auto_Ans-salt
 ```
 
-### 1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
+### 1️⃣: **The Inventory** 
+
+Open the `hosts` file using vim (the best editor), sudo or other editors.
+
    - Add your target VM IPs under `[remote_nodes]`.
-   - **Optional:** <p> If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.<p> 
+     
+   - **Optional:**
+<p> If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.<p> 
 
 
-### 2. **The Launch:** Run this command in your terminal:
+### 2️⃣: **The Launch:** Run this command in your terminal:
 
    ```bash
    ansible-playbook -i hosts deploy_minions.yml
