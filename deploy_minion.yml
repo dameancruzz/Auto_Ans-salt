@@ -1,9 +1,8 @@
 ---
-
 # File name: Deploy_minion.yml
 
 - name: Industrial Deployment of Salt Minion
-  hosts: targets  # <--- This matches your [targets:children] group
+  hosts: targets  # <--- This matches your [targets:children] group in hosts file
   gather_facts: no
   become: yes
 
@@ -17,13 +16,18 @@
       private: yes
 
   vars:
-    # Uses absolute path to ensure the key is found in your home directory
-    ssh_key_path: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
-    # Logic: Use the password from the inventory line if it exists, otherwise use the prompt
+    # AUTO-DETECT: Looks for the first available public key so the user doesn't have to change paths.
+    # It checks for modern ED25519 first, then standard RSA.
+    ssh_key_content: "{{ lookup('first_found', dict(files=['id_ed25519.pub', 'id_rsa.pub', 'id_dsa.pub'], paths=['~/.ssh/'])) }}"
+    
+    # This path is used specifically by Task 0 if a key needs to be created from scratch.
+    default_ssh_key_path: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+
+    # LOGIC: Use the password from the inventory line if it exists, otherwise use the prompt.
     active_password: "{{ hostvars[inventory_hostname]['ansible_ssh_pass'] | default(fallback_password) }}"
 
   tasks:
-    # 0. KEY GEN: Creates an SSH key on your master if you don't have one.
+    # 0. KEY GEN: Self-healing step. Creates an SSH key on your master if you don't have one.
     - name: Ensure local SSH key exists
       delegate_to: localhost
       run_once: true
@@ -31,16 +35,20 @@
         name: "{{ lookup('env', 'USER') }}"
         generate_ssh_key: yes
         ssh_key_type: ed25519
-        ssh_key_file: "{{ ssh_key_path }}"
+        ssh_key_file: "{{ default_ssh_key_path }}"
+      # Only runs if the auto-detect lookup above failed to find an existing key
+      when: ssh_key_content is not defined
 
     # 1. BOOTSTRAP: Delivers your public key to the VM so you don't need passwords later.
     - name: Deliver my digital ID card (SSH Public Key)
       ansible.posix.authorized_key:
         user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
         state: present
-        key: "{{ lookup('file', ssh_key_path + '.pub') }}"
+        # Uses the content found by the auto-detector
+        key: "{{ ssh_key_content }}"
       vars:
         ansible_password: "{{ active_password }}"
+      # Skip for local laptop to avoid SSH loop/timeout
       when: ansible_connection != 'local'
 
     # 2. IP DISCOVERY: Scans your master to find its network IP.
@@ -81,7 +89,7 @@
               - python3-looseversion
               - nmap-ncat
             state: latest
-            disable_gpg_check: yes
+            disable_gpg_check: yes # Fixes signature trust issues on Fedora
 
         # 6. CONFIG: Edits the minion file to point back to your Master.
         - name: Set Master IP in Minion Config
