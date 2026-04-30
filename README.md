@@ -22,7 +22,7 @@ cd Auto_Ans-salt
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
-   - This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions)
+   <p> This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions). </p>
 
      
 ### 3. **The Passwords:** Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt). 
