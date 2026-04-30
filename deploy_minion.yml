@@ -1,0 +1,123 @@
+---
+
+# File name: Deploy_minion.yml
+
+- name: Industrial Deployment of Salt Minion
+  hosts: targets  # <--- This matches your [targets:children] group
+  gather_facts: no
+  become: yes
+
+  # GITHUB SECURITY: Prompts for passwords so you never hardcode them in Git.
+  vars_prompt:
+    - name: "fallback_password"
+      prompt: "SSH Password (for hosts missing 'ansible_ssh_pass' in inventory)"
+      private: yes
+    - name: "ansible_become_password"
+      prompt: "SUDO Password (for root/admin tasks)"
+      private: yes
+
+  vars:
+    # Uses absolute path to ensure the key is found in your home directory
+    ssh_key_path: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+    # Logic: Use the password from the inventory line if it exists, otherwise use the prompt
+    active_password: "{{ hostvars[inventory_hostname]['ansible_ssh_pass'] | default(fallback_password) }}"
+
+  tasks:
+    # 0. KEY GEN: Creates an SSH key on your master if you don't have one.
+    - name: Ensure local SSH key exists
+      delegate_to: localhost
+      run_once: true
+      ansible.builtin.user:
+        name: "{{ lookup('env', 'USER') }}"
+        generate_ssh_key: yes
+        ssh_key_type: ed25519
+        ssh_key_file: "{{ ssh_key_path }}"
+
+    # 1. BOOTSTRAP: Delivers your public key to the VM so you don't need passwords later.
+    - name: Deliver my digital ID card (SSH Public Key)
+      ansible.posix.authorized_key:
+        user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
+        state: present
+        key: "{{ lookup('file', ssh_key_path + '.pub') }}"
+      vars:
+        ansible_password: "{{ active_password }}"
+      when: ansible_connection != 'local'
+
+    # 2. IP DISCOVERY: Scans your master to find its network IP.
+    - name: Detect Master IP from local machine
+      ansible.builtin.setup:
+      delegate_to: localhost
+      delegate_facts: true
+      run_once: true
+
+    # 3. MASTER GUARD: Ensures your Salt Master service is actually running.
+    - name: Ensure Salt Master is running on the control node
+      ansible.builtin.systemd:
+        name: salt-master
+        state: started
+        enabled: yes
+      delegate_to: localhost
+      become: yes
+      run_once: true
+
+    # 4. HANDSHAKE: Now that keys are placed, we log in and gather remote info.
+    - name: Gather facts for all hosts
+      ansible.builtin.setup:
+
+    - name: Salt Deployment Block
+      become: yes
+      vars:
+        # Uses your laptop's detected IP so the VM knows where to connect.
+        salt_master_ip: "{{ hostvars['localhost']['ansible_default_ipv4']['address'] | default('127.0.0.1') }}"
+      block:
+        # 5. PKG: Installs Salt and the netcat tool for the health check.
+        - name: Install Salt Minion and Dependencies
+          ansible.builtin.dnf:
+            name:
+              - salt-minion
+              - python3-zmq
+              - python3-msgpack
+              - python3-cryptography
+              - python3-looseversion
+              - nmap-ncat
+            state: latest
+            disable_gpg_check: yes
+
+        # 6. CONFIG: Edits the minion file to point back to your Master.
+        - name: Set Master IP in Minion Config
+          ansible.builtin.lineinfile:
+            path: /etc/salt/minion
+            regexp: '^#?master:.*'
+            line: "master: {{ salt_master_ip }}"
+            state: present
+          notify: Restart Salt Minion
+
+        # 7. FIREWALL: Opens the ports on the VM.
+        - name: Configure Local Firewall for Salt
+          ansible.builtin.firewalld:
+            port: "{{ item }}/tcp"
+            permanent: yes
+            state: enabled
+            immediate: yes
+          loop:
+            - 4505
+            - 4506
+
+      rescue:
+        - name: REPORT ERROR
+          ansible.builtin.debug:
+            msg: "CRITICAL: The Salt installation failed on {{ inventory_hostname }}."
+
+    # 8. VERIFY: Final check to see if the VM can "see" the Master's port.
+    - name: Final Connectivity Health Check
+      ansible.builtin.command: "nc -zv {{ hostvars['localhost']['ansible_default_ipv4']['address'] }} 4506"
+      register: nc_check
+      failed_when: "'succeeded' not in nc_check.stderr and nc_check.rc != 0"
+      changed_when: false
+
+  handlers:
+    - name: Restart Salt Minion
+      ansible.builtin.systemd:
+        name: salt-minion
+        state: restarted
+        enabled: yes
