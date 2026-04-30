@@ -1,13 +1,14 @@
 🧱 Salt Minion Automation: The Lego House Project
 ===============
 
-This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automates the annoying, beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues (*if it occurs*), so you can get straight to managing your infrastructure using salt.
+This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automates the annoying beginning hassle of <ins>installing the minion<ins> on a device, <ins>setting IPs<ins>, and <ins>fixing firewall issues<ins> (_if it occurs_), so you can get straight to managing your infrastructure using **Salt**.
+```
 
-
+```
 ---
+```
 
-
-
+```
 ✅ Quick Start: How to make it work
 
 ### 0️⃣: **Get the Files**
