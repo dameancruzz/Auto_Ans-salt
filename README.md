@@ -1,4 +1,5 @@
-# 🧱 Salt Minion Automation: The Lego House Project
+7-+# 🧱 Salt Minion Automation: The Lego House Project
+
 
 This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoying beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues if it occurs, so you can get straight to managing your infrastructure.
 
@@ -22,7 +23,8 @@ cd Auto_Ans-salt
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
-   - This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) -i (the inventory flag) hosts (the target list) deploy_minions.yml (the instructions).
+   - This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) -i (the inventory flag) hosts (the target list) deploy_minions.yml (the instruction
+   - /7s).
 
      
 ### 3. **The Passwords:** Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt). 
