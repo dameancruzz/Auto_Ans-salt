@@ -1,2 +1,22 @@
-[minions]
-192.168.122.43 ansible_user=user
+# ==========================================================
+# ANSIBLE INVENTORY FILE (hosts)
+# ==========================================================
+
+# --- GROUP: THE MASTER ---
+[master_node]
+# This is your main laptop. 
+# It doesn't need a password here because it uses 'connection=local'.
+localhost ansible_connection=local
+
+# --- GROUP: REMOTE NODES ---
+[remote_nodes]
+# ----------------------------------------------------------
+# HELP: DIFFERENT PASSWORDS FOR DIFFERENT VMs?
+# ----------------------------------------------------------
+# If your VMs have different passwords, add 'ansible_ssh_pass=' 
+# to each line. This overrides the "one-size-fits-all" prompt.
+#
+# EXAMPLE:
+# 10.41.10.66 ansible_user=Bobjr ansible_ssh_pass=Pass123
+# 192.168.122.50 ansible_user=damean ansible_ssh_pass=Secret999
+# ----------------------------------------------------------                
