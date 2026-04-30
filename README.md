@@ -6,9 +6,10 @@ This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoy
 
 ### 0. Get the Files
 First, you need to bring this project from GitHub onto your computer. Open your terminal and run:
+
 ```bash
-git clone <YOUR_GITHUB_REPO_URL_HERE>
-cd <YOUR_REPO_NAME>
+git clone https://github.com/dameancruzz/Auto_Ans-salt
+cd Auto_Ans-salt
 ```
 
 ### 1. **The Inventory:** Open the `hosts` file using vim (the best editor), sudo or other editors.
