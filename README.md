@@ -16,6 +16,7 @@ cd Auto_Ans-salt
    - Add your target VM IPs under `[remote_nodes]`.
    - **Optional:** <p> If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.<p> 
 
+
 ### 2. **The Launch:** Run this command in your terminal:
 
    ```bash
