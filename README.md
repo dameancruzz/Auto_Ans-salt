@@ -28,10 +28,10 @@ cd Auto_Ans-salt
      
 **The Passwords** 
 
-<p> Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).</p> 
+   <p> Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).</p> 
 
 **The Result** 
-<p> Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more passwords needed! </p>
+   <p> Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed! </p>
 
 ---
 
