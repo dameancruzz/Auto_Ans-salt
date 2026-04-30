@@ -1,6 +1,6 @@
 # 🧱 Salt Minion Automation: The Lego House Project
 
-This project uses **Ansible** to bootstrap **SaltStack**. It automates the "Day Zero" hassle—installing minions, setting IPs, and fixing firewalls—so you can get straight to managing your infrastructure.
+This project uses **Ansible** to bootstrap **SaltStack**. It automates the annoying beginning hassle of installing the minion on a device, setting IPs, and fixing firewall issues if it occurs, so you can get straight to managing your infrastructure.
 
 ## 🚀 Quick Start: How to make it work
 
