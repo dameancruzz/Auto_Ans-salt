@@ -6,9 +6,9 @@ This project uses a **Ansible** playbook to jumpstart **SaltStack**. It automate
   
 ---
 
-✅ Quick Start: How to make it work
+✅ ### Quick Start: How to make it work
 
-### 0️⃣: **Get the Files**
+## 0️⃣: **Get the Files**
 First, you need to bring this project from GitHub onto your device. Open your terminal and run:
 
 ```bash
@@ -16,7 +16,7 @@ git clone https://github.com/dameancruzz/Auto_Ans-salt
 cd Auto_Ans-salt
 ```
 
-### 1️⃣: **The Inventory** 
+## 1️⃣: **The Inventory** 
 
 Open the `hosts` file using vim (the best editor), sudo or other editors.
 
@@ -26,7 +26,7 @@ Open the `hosts` file using vim (the best editor), sudo or other editors.
 If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.
 
 
-### 2️⃣: **The Launch:** Run this command in your terminal:
+## 2️⃣: **The Launch:** Run this command in your terminal:
 
    ```bash
    ansible-playbook -i hosts deploy_minions.yml
