@@ -51,11 +51,11 @@ Once it finishes, your VM is a Salt Minion and your laptop is the Master. No mor
 
 Imagine you want 10 friends across the world to build a super-specific **Lego house** exactly the same way.
 
-**Ansible (The Mail Carrier)**
+**Ansible (The Mail Carrier)**  
 Like a mail carrier, Ansible delivers a letter (**Playbook**) over **SSH**. The carrier stays and reads instructions line-by-line. If they leave, the work stops. Once they are done, they head home. It’s perfect for the "First Touch."
 
 **Salt (The Smart Home)**  
- Salt installs a speaker in the house (**Minion**). You push a button from your laptop (**Master**) and it broadcasts a blueprint (**SLS file**). The house "listens" and stays in that state. If a Lego piece falls off or the master disconnects, it will "self-heals" automatically!
+Salt installs a speaker in the house (**Minion**). You push a button from your laptop (**Master**) and it broadcasts a blueprint (**SLS file**). The house "listens" and stays in that state. If a Lego piece falls off or the master disconnects, it will self-heal automatically!
 
 **The Strategy** 
 Use Ansible to **build** the house and Salt to **live in and manage** it.
