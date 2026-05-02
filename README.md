@@ -77,8 +77,3 @@ Use Ansible to **build** the house and Salt to **live in and manage** it.
 *   **firewalld:** The security guard that opens ports 4505/4506 and keeps them open after a reboot.
 
 ---
-
-## 📊 Technical Summary
-*   **The Delivery (Ansible & SSH):** Your delivery truck. It walks in, sets up the speaker, and drives away.
-*   **The Intercom (SaltStack & ZeroMQ):** A permanent, high-speed "always on" tunnel. 
-*   **The Shout (Commands & Grains):** You broadcast a signal to 1,000 friends as easily as one, and they respond in milliseconds.
