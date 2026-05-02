@@ -71,7 +71,7 @@ Use Ansible to **build** the house and Salt to **live in and manage** it.
 *   **notify/handlers:** A reminder system. If a config file changes, it triggers a service restart at the very end.
 
 ### The Modules (The Tools)
-*   **authorized_key:** Delivers your "Digital ID" (`id_ed25519.pub`) to the VM for passwordless access.
+*   **authorized_key:** Delivers your "Digital ID" (`id_ed111.pub`) to the VM for passwordless access.
 *   **dnf:** The package manager that downloads the Salt Minion and Python "batteries."
 *   **lineinfile:** The text editor that finds the `master:` line and points it to your laptop's IP.
 *   **firewalld:** The security guard that opens ports 4505/4506 and keeps them open after a reboot.
