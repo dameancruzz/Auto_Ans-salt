@@ -18,12 +18,12 @@ cd Auto_Ans-salt
 
 ## 1️⃣ **The Inventory** 
 
-Open the `hosts` file using vim (the best editor), sudo or other editors.
+Open the `hosts` file using vim, or other editors.
 
-   - Add your target VM IPs under `[remote_nodes]`.
+   - Add your target VM IPs under `[remote_nodes]`. Try to do one VM or device at a time due to password retrieval issues. 
      
    - **Optional:**
-If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` from `master_node` at the very very bottom of the file hosts. This is a great way to test the playbook works before adding other IP's to the hosts file.
+If you want to test on your own laptop first, basically making it so your master also becomes a minion, you can remove the `#` (_comment_) which is placed below `master_node` at the very very bottom of the file `hosts`. This is a great way to test the playbook works before adding other IP's to the hosts file. You could also leave it on.
 
 
 ## 2️⃣ **The Launch:** Run this command in your terminal:
@@ -32,16 +32,49 @@ If you want to test on your own laptop first, basically making it so your master
    ansible-playbook -i hosts deploy_minions.yml
    ```
 
-This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them. ansible-playbook (the tool) ; -i (the inventory flag) ; hosts (the target list) ; deploy_minions.yml (the instructions).
+This command is basically telling Ansible to use the hosts list to find your targets and execute the deploy_minions instructions on them.  
+`ansible-playbook` (the tool) ; `-i` (the inventory flag) ; `hosts` (the target list) ; `deploy_minions.yml` (the instructions).  
+
+---
+
+
 
      
 **The Passwords**  
-Ansible will ask for your **SSH password** (to deliver your key) and your **SUDO password** (to install Salt).
+
+  - When starting the script you will be prompted to enter SSH Password  
+    `SSH password (for hosts missing 'ansible_ssh_pass' in inventory):`
+
+    This is the password for the deivce you want to add to the hosts file. Recommended one Device at a time.
+
+  - Will the be promted with for masters, or whatever device your useing the playbook on.
+    `SUDO password (for root/admin tasks):`  
+
+    This will find and look for any public key files that are common and use that public key to do ssh stuff. (_Discussed more in the playbook above the task in the '#' comment section_)
+
+---
 
 **The Result**  
-Once it finishes, your VM is a Salt Minion and your laptop is the Master. No more    passwords needed!
+Once it finishes, your target device just needec to be accepted as a Salt Minion and your laptop is the Master. No more passwords needed! Hopefully...
+
+
+---
 
 #3️⃣ **Accept key**  
+
+First we must list the keys to make sure it is shown under `Unaccepted Keys:`.
+
+   ```bash
+    sudo salt-key -L
+   ```  
+After key shows under `Unaccepted Keys:` we will just need to accept it using...  
+
+   ```bash
+    sudo salt-key -A
+   ```
+  - The `-A` means to accept **all** keys under `Unaccepted keys:` Could also use `sudo salt-key -a <minion name>` to accpet a certain key.
+
+
 
 
 
